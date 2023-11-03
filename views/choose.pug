@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Sathvik Reddy Cheruku
+
+    - var image_names = ['juice-1.jpg', 'juice-2.jpg', 'juice-3.jpg', 'juice-4.jpg', 'juice-5.jpg']
+
+  - for (let i = 0; i < 3; i++) {
+    - var randomIndex = Math.floor(Math.random() * 5);
+    - let imagename = image_names[randomIndex];
+    img(src="/images/"+imagename, alt=`Image ${randomIndex + 1}`, height='200', width='200')
+  -}
