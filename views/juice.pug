@@ -5,14 +5,9 @@ block content
 
   .container-fluid
     .row
-      -
-        let results = [
-          { Juice_name:'Mango', Juice_color:'Yellow',Juice_cost:50 },
-          { Juice_name:'Apple', Juice_color:'Red',Juice_cost:60 },
-          { Juice_name:'Guava', Juice_color:'Green',Juice_cost:70  }
-        ]
-    each item,index in results
-        .col-sm-2
+     -let items = results;
+      each item,index in items
+       div.col-sm-2
             h3 Juice 
             p #{item.Juice_name}, #{item.Juice_color},#{item.Juice_cost}
             a(href="http://localhost:3001/" onclick=`buy(${index}); return false;`) Buy Juice #{index}
