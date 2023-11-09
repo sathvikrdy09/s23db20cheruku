@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var juiceRouter = require('./routes/juice');
 var boardRouter = require('./routes/board');
 var chooseRouter = require('./routes/choose');
+var juice = require('./models/juice');
 
 
 var app = express();
@@ -46,3 +47,45 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+// Delete everything
+await juice.deleteMany();
+let instance1 = new juice({Juice_name:'Mango', Juice_color:'Yellow',Juice_cost:50});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+
+let instance2 = new juice({ Juice_name:'Apple', Juice_color:'Red',Juice_cost:60 });
+instance2.save().then(doc=>{
+console.log("Second object saved")}
+).catch(err=>{
+console.error(err)
+});
+
+let instance3 = new juice({Juice_name:'Guava', Juice_color:'Green',Juice_cost:70});
+instance3.save().then(doc=>{
+console.log("Third object saved")}
+).catch(err=>{
+console.error(err)
+});
+}
+let reseed = true;
+if (reseed) {recreateDB();}
+
