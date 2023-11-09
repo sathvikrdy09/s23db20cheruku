@@ -10,6 +10,7 @@ var juiceRouter = require('./routes/juice');
 var boardRouter = require('./routes/board');
 var chooseRouter = require('./routes/choose');
 var juice = require('./models/juice');
+var resourceRouter = require('./routes/resource');
 
 
 var app = express();
@@ -29,6 +30,7 @@ app.use('/users', usersRouter);
 app.use('/juice', juiceRouter);
 app.use('/board', boardRouter);
 app.use('/choose', chooseRouter);
+app.use('/routes', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

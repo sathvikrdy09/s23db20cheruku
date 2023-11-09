@@ -4,5 +4,4 @@ const juiceSchema = mongoose.Schema({
     Juice_color: String,
     Juice_cost: Number
 })
-module.exports = mongoose.model("Costume",
-juiceSchema)
+module.exports = mongoose.model("Costume",juiceSchema)
