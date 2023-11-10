@@ -14,10 +14,21 @@ res.send('NOT IMPLEMENTED: juice create POST');
 exports.juice_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: juice delete DELETE ' + req.params.id);
 };
-// Handle juice update form on PUT.
-exports.juice_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: juice update PUT' + req.params.id);
+
+
+
+// for a specific Juice.
+exports.juice_detail = async function(req, res) {
+console.log("detail" + req.params.id)
+try {
+result = await juice.findById( req.params.id)
+res.send(result)
+} catch (error) {
+res.status(500)
+res.send(`{"error": document for id ${req.params.id} not found`);
+}
 };
+
 
 // List of all juice
 exports.juice_list = async function(req, res) {
@@ -44,6 +55,28 @@ exports.juice_view_all_Page = async function(req, res) {
     }
     };
     
+   // Handle Juice update form on PUT.
+    exports.juice_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await juice.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.Juice_name)
+    toUpdate.Juice_name = req.body.Juice_name;
+    if(req.body.Juice_color) toUpdate.Juice_color = req.body.Juice_color;
+    if(req.body.Juice_cost) toUpdate.Juice_cost = req.body.Juice_cost;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+    failed`);
+    }
+    };
+
+
     
     // Handle juice create on POST.
 exports.juice_create_post = async function(req, res) {
