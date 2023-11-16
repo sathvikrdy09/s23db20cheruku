@@ -14,3 +14,11 @@ var router = express.Router();
 /* GET juice */
 router.get('/', juice_controlers.juice_view_all_Page );
 module.exports = router;
+
+router.get('/detail', juice_controlers.juice_view_one_Page);
+
+router.get('/create', juice_controlers.juice_create_Page);
+
+router.get('/update', juice_controlers.juice_update_Page);
+
+router.get('/delete', juice_controlers.juice_delete_Page);

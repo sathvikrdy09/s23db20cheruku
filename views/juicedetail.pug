@@ -1,0 +1,23 @@
+extends layout
+block content
+ h1= title
+ if(toShow == null)
+    h2 No instance to toshow
+ else
+  - let juiceid = toShow._id
+  - let juice_name = toShow.Juice_name
+  - let juice_color = toShow.Juice_color
+  - let juice_cost = toShow.Juice_cost
+  div
+  div.row
+  div(class='juiceAttr mr-3') juice ID is:
+  div #{juiceid}
+  div.row
+  div(class='juiceAttr mr-3') juice name is:
+  div #{juice_name}
+  div.row
+  div(class='juiceAttr mr-3') juice color is:
+  div #{juice_color}
+  div.row
+  div(class='juiceAttr mr-3') juice Cost is:
+  div #{juice_cost}

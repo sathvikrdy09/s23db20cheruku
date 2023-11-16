@@ -1,0 +1,36 @@
+extends layout
+block content
+ h1= title
+ - let juiceid = toShow._id
+ - let Juice_name = toShow.Juice_name
+ - let Juice_color = toShow.Juice_color
+ - let Juice_cost = toShow.Juice_cost
+ div.row(class='mb-2')
+ div.mr-1 ID is
+ div #{juiceid}
+ - let actionid = "/resource/juice/" + juiceid
+ form(id='juiceForm', action=actionid, method="PUT")
+  div.form-group
+   label.juiceAttr(for='Juice_name') juice name
+   input#Juice_name(type='text', name='Juice_name',value=Juice_name)
+  div.form-group
+   label.juiceAttr(for='Juice_color') juice age
+   input#Juice_color(type='text', name='Juice_color',value=Juice_color)
+  div.form-group
+   label.juiceAttr(for='Juice_cost') juice jumpheight
+   input#Juice_cost(type='number', name='Juice_cost',value=Juice_cost)
+  input(type="submit")
+ script.
+  document.forms['juiceForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) 
+    }).then((resp) => {
+        return resp.json();
+    }).then((body) => {
+        alert("Save succeded")
+    }).catch((error) => {
+        alert("Save failed " + error )
+    });
+   });

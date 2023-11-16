@@ -1,0 +1,50 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let juiceid = toShow._id
+    - let Juice_name = toShow.Juice_name
+    - let Juice_color = toShow.Juice_color
+    - let Juice_cost = toShow.Juice_cost
+    - let actionid = "/resource/juice/" + juiceid
+    script.
+      let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='juiceAttr mr-3') juice ID is:
+        div #{juiceid}
+      div.row
+        div(class='juiceAttr mr-3') juice Name is:
+        div #{Juice_name}
+      div.row
+        div(class='juiceAttr mr-3') juice color is:
+        div #{Juice_color}
+      div.row
+        div(class='juiceAttr mr-3') juice cost is:
+        div #{Juice_cost}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the juice collection
+        window.location.href='/juice'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeeded")
+          window.location.href='/juice'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error)
+        });
+      }
