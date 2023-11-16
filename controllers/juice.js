@@ -10,10 +10,21 @@ res.send('NOT IMPLEMENTED: juice detail: ' + req.params.id);
 exports.juice_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: juice create POST');
 };
-// Handle juice delete form on DELETE.
-exports.juice_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: juice delete DELETE ' + req.params.id);
-};
+
+
+// Handle juice delete on DELETE.
+exports.juice_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await juice.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+    
 
 
 
