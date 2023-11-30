@@ -6,10 +6,12 @@ block content
   .container-fluid
     .row
       - let items = results;
+      a.btn.btn-success(href="/juice/create") Create New Juice
       each item, index in items
         - let destination = `/juice/update?id=${item._id}` // Fix variable name and template string
         div(class="col-sm-2", onclick=`buy(${item})`) #{item.Juice_name}, #{item.Juice_color}, #{item.Juice_cost} // Fix variable name
           button.btn(class="btn-primary ml-1", onclick=`dispatch('${destination}')`) Update
+          button.btn(class="btn-primary ml-1", onclick=`dispatch('${destination}')`) View Details
   script.
     function buy(a) {
       alert(`You purchased Item ${a.Juice_name}`); // Fix the alert message

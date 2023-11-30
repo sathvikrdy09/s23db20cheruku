@@ -31,7 +31,7 @@ var usersRouter = require('./routes/users');
 var juiceRouter = require('./routes/juice');
 var boardRouter = require('./routes/board');
 var chooseRouter = require('./routes/choose');
-var juice = require('./models/juice');
+var Juice = require('./models/juice');
 var resourceRouter = require('./routes/resource');
 
 
@@ -108,22 +108,24 @@ console.log("Connection to DB succeeded")});
 // We can seed the collection if needed on server start
 async function recreateDB(){
 // Delete everything
-await juice.deleteMany();
-let instance1 = new juice({Juice_name:'Mango', Juice_color:'Yellow',Juice_cost:50});
+await Juice.deleteMany({}, { maxTimeMS: 20000 }); // Increase timeout to 20 seconds
+
+
+let instance1 = new Juice({Juice_name:'Mango', Juice_color:'Yellow',Juice_cost:50});
 instance1.save().then(doc=>{
 console.log("First object saved")}
 ).catch(err=>{
 console.error(err)
 });
 
-let instance2 = new juice({ Juice_name:'Apple', Juice_color:'Red',Juice_cost:60 });
+let instance2 = new Juice({ Juice_name:'Apple', Juice_color:'Red',Juice_cost:60 });
 instance2.save().then(doc=>{
 console.log("Second object saved")}
 ).catch(err=>{
 console.error(err)
 });
 
-let instance3 = new juice({Juice_name:'Guava', Juice_color:'Green',Juice_cost:70});
+let instance3 = new Juice({Juice_name:'Guava', Juice_color:'Green',Juice_cost:70});
 instance3.save().then(doc=>{
 console.log("Third object saved")}
 ).catch(err=>{
